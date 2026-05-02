@@ -1,0 +1,23 @@
+<div class="product">
+  <div class="product__image">
+    <img src="../../../assets/images/{{product.image }}" alt="macaroon" />
+  </div>
+  <div class="product__title">{{ product.title }}</div>
+  <div class="product__footer">
+    <div class="product__price">
+      <span>{{ product.price.quantity }}</span>
+      <span>{{ product.price.value | currencyPipe }}</span>
+    </div>
+    <div class="product__action">
+      <button
+         buttonStyle
+          [buttonStyleDefaultColor]="'linear-gradient( to right, rgb(113, 8, 30) 0%,rgb(215, 72, 92) 100%)'"
+          [buttonStyleHoverColor]="'linear-gradient( to left, rgb(113, 8, 30) 0%,rgb(215, 72, 92) 100%)'"
+        class="button button_red product__button"
+        (click)="addProductToCart()"
+      >
+        Заказать
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,22 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductType } from './types/product.type';
+import { ProductService } from './services/product.service';
+import { ProductCartService } from './services/product-cart.service';
+import { AdvantagesType } from './types/advantage.type';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [ProductService, ProductCartService],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  public showCountToCart: boolean = false;
   public showPresent: boolean = true;
-  public phone="+375 (29) 368-98-69";
-  public instagramLink='http://google.ru';
+  public phone = '375293689869';
+  public instagramLink = 'http://google.ru';
 
   public formValues = {
     productTitle: '',
     name: '',
     phone: '',
   };
-  public advantages = [
+  public advantages: AdvantagesType[] = [
     {
       title: 'Лучшие продукты',
       description:
@@ -39,40 +44,12 @@ export class AppComponent {
     },
   ];
 
-  public products: ProductType[] = [
-    {
-      image: '1.png',
-      title: 'Макарун с малиной',
-      price: {
-        quantity: '1 шт.',
-        value: '1,70 руб.',
-      },
-    },
-    {
-      image: '2.png',
-      title: 'Макарун с манго',
-      price: {
-        quantity: '1 шт.',
-        value: '1,90 руб.',
-      },
-    },
-    {
-      image: '3.png',
-      title: 'Пирог с ванилью',
-      price: {
-        quantity: '1 шт.',
-        value: '2,70 руб.',
-      },
-    },
-    {
-      image: '4.png',
-      title: 'Пирог с фисташками',
-      price: {
-        quantity: '1 шт.',
-        value: '1,80 руб.',
-      },
-    },
-  ];
+  public products: ProductType[] = [];
+
+  constructor(
+    private productServis: ProductService,
+    public cart: ProductCartService,
+  ) {}
 
   public scrollTo(target: HTMLElement): void {
     target.scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -81,5 +58,24 @@ export class AppComponent {
   public addToCart(product: ProductType, target: HTMLElement): void {
     this.scrollTo(target);
     this.formValues.productTitle = product.title.toUpperCase();
+
+    this.showCountToCart = true;
+    alert(product.title + ' добавлен в корзину!');
+  }
+
+  ngOnInit(): void {
+    this.products = this.productServis.getProduct();
+    const burgerElement: HTMLElement | null = document.getElementById('burger');
+    const menuElement = document.getElementById('menu');
+    if (burgerElement && menuElement) {
+      burgerElement.onclick = function () {
+        menuElement.classList.add('open');
+      };
+      document.querySelectorAll('#menu *').forEach((item) => {
+        (item as HTMLElement).onclick = () => {
+          menuElement.classList.remove('open');
+        };
+      });
+    }
   }
 }
