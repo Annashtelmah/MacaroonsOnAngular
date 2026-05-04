@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductCartService {
- public count;
- public sum;
-  constructor() { 
-   this.count=0;
-   this.sum=0;
-  }
-  
+  public count: number = 0;
+  public sum: number = 0;
+  constructor() {}
 }
