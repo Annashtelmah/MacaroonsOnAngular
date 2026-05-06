@@ -218,7 +218,9 @@
   </div>
 </footer>
 <div class="present" *ngIf="showPresent">
-  <div class="present__message">{{ cart.sum  | currency:'RUB':'руб.':'1.2-2'  }}</div>
+  <div class="present__message">
+    {{ cart.sum | currency:'RUB':'руб.':'1.2-2' }}
+  </div>
   <div class="present__widget">
     <div class="countProduktToCart" *ngIf="showCountToCart">
       {{ cart.count }}

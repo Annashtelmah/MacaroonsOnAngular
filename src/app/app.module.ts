@@ -10,6 +10,8 @@ import { ProductComponent } from './components/product/product.component';
 import { ButtonStyleDirective } from './directives/button-style.directive';
 import { CustomTextPipe } from './pipes/custom-text.pipe';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
+import { registerLocaleData } from '@angular/common';
+
 
 
 @NgModule({
